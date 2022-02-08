@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <!-- Below is example -->
+
+    <ItemGroup>
+        <TestItem Include="test1" />
+        <TestItem Include="test2" />
+        <TestItem Include="test3" />
+    </ItemGroup>
+
+    <PropertyGroup>
+        <TestProperty>Property Value</TestProperty>
+    </PropertyGroup>
+
+    <Target Name="TestMessage" AfterTargets="Build">
+        <!-- Use $(Property Name) to reference a property -->
+        <!-- You can find more common MSBuild properties here https://docs.microsoft.com/zh-tw/visualstudio/msbuild/common-msbuild-project-properties -->
+        <Message Text="$(TestProperty)" Importance="high" />
+
+        <!-- Use @(Item Name) to output a semi-colon separated list of items on one line -->
+        <Message Text="@(TestItem)" Importance="high" />
+
+        <!-- Use %(Item Name.Metadata Property Name) to call the Message task once for each item -->
+        <!-- This will output each item on a separate line -->
+        <Message Text="%(TestItem.Identity)" Importance="high" />
+    </Target>
+
+</Project>
